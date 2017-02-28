@@ -33,7 +33,7 @@ Found 1 devices
 
 ### Library
 ```javascript
-import {getTemperDevices} from 'temper';
+import {getTemperDevices} from 'temper-usb';
 getTemperDevices().forEach((td) => td.getTemperature().then(console.log).catch(console.err);
 // {"0": 89.6, "1": 76.71171875}
 ```
@@ -43,15 +43,15 @@ getTemperDevices().forEach((td) => td.getTemperature().then(console.log).catch(c
 Install `temper` as a dependency:
 
 ```shell
-npm install --save temper
+npm install --save temper-usb
 ```
 If you want to install scripts globally, use `-g`. If you have install
 issues, checkout [usb](https://www.npmjs.com/package/usb) for more info
 on installing the correct usb libraries.
 
 ## Debugging
-We use [debug](https://github.com/visionmedia/debug). In node set env variable `DEBUG=temper:*` 
-or in a browser `localStorage.debug='temper:*'` to see debugging output.
+We use [debug](https://github.com/visionmedia/debug). In node set env variable `DEBUG=temper-usb:*` 
+or in a browser `localStorage.debug='temper-usb:*'` to see debugging output.
 
 ## Notes and a Thank You
 This project borrows heavily from [temper-python](https://github.com/padelt/temper-python/blob/master/temperusb/cli.py)
@@ -62,15 +62,15 @@ License
 -------------
 [Apache-2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
 
-[npm-url]: https://npmjs.org/package/temper
-[npm-image]: https://badge.fury.io/js/temper
+[npm-url]: https://npmjs.org/package/temper-usb
+[npm-image]: https://badge.fury.io/js/temper-usb
 
-[travis-url]: http://travis-ci.org/mlucool/node-temper
-[travis-image]: https://secure.travis-ci.org/mlucool/node-temper.png?branch=master
+[travis-url]: http://travis-ci.org/mlucool/temper-usb
+[travis-image]: https://secure.travis-ci.org/mlucool/temper-usb.png?branch=master
 
-[coveralls-url]: https://coveralls.io/github/mlucool/node-temper?branch=master
-[coveralls-image]: https://coveralls.io/repos/mlucool/node-temper/badge.svg?branch=master&service=github
+[coveralls-url]: https://coveralls.io/github/mlucool/temper-usb?branch=master
+[coveralls-image]: https://coveralls.io/repos/mlucool/temper-usb/badge.svg?branch=master&service=github
 
-[depstat-url]: https://david-dm.org/mlucool/node-temper
-[depstat-image]: https://david-dm.org/mlucool/node-temper.png
+[depstat-url]: https://david-dm.org/mlucool/temper-usb
+[depstat-image]: https://david-dm.org/mlucool/temper-usb.png
 

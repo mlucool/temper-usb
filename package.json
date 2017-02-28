@@ -1,5 +1,5 @@
 {
-  "name": "temper",
+  "name": "temper-usb",
   "version": "0.0.1",
   "description": "Node TEMPer USB library and CLI",
   "main": "index.js",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mlucool/node-temper.git"
+    "url": "git+https://github.com/mlucool/temper-usb.git"
   },
   "bugs": {
-    "url": "https://github.com/mlucool/node-temper/issues"
+    "url": "https://github.com/mlucool/temper-usb/issues"
   },
-  "homepage": "https://github.com/mlucool/node-temper#readme",
+  "homepage": "https://github.com/mlucool/temper-usb#readme",
   "scripts": {
     "lint": "gulp lint",
     "test": "gulp test",

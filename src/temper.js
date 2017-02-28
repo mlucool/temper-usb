@@ -3,7 +3,7 @@ import usb from 'usb';
 import _ from 'lodash';
 import * as consts from './consts';
 
-const debug = require('debug')('temper:temper');
+const debug = require('debug')('temper-usb:temper');
 
 /**
  * Get an array of TemperDevices that match the temper vendor/product ID
