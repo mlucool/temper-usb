@@ -5,6 +5,7 @@
   "main": "index.js",
   "files": [
     "dist",
+    "bin",
     "docs",
     "index.js",
     "src"
