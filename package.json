@@ -10,7 +10,7 @@
     "src"
   ],
   "bin": {
-    "temper": "dist/temper-cli.js"
+    "temper": "bin/cli.js"
   },
   "repository": {
     "type": "git",
