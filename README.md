@@ -33,8 +33,8 @@ Found 1 devices
 
 ### Library
 ```javascript
-import {getTemperDevices} from 'temper-usb';
-getTemperDevices().forEach((td) => td.getTemperature().then(console.log).catch(console.err);
+import {getTemperDevices} from 'temper-usb'; // const getTemperDevices = require('temper-usb').getTemperDevices;
+getTemperDevices().forEach((td) => td.getTemperature().then(console.log).catch(console.err));
 // {"0": 89.6, "1": 76.71171875}
 ```
 
