@@ -1,0 +1,83 @@
+{
+  "name": "temper",
+  "version": "0.0.1",
+  "description": "Node TEMPer USB library and CLI",
+  "main": "index.js",
+  "files": [
+    "dist",
+    "docs",
+    "index.js",
+    "src"
+  ],
+  "bin": {
+    "temper": "dist/temper-cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlucool/node-temper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mlucool/node-temper/issues"
+  },
+  "homepage": "https://github.com/mlucool/node-temper#readme",
+  "scripts": {
+    "lint": "gulp lint",
+    "test": "gulp test",
+    "preversion": "echo \"Another version! Keep up the good work!\"",
+    "version": "",
+    "postversion": "git push && git push --tags",
+    "prepublish": "gulp default",
+    "coveralls": "gulp test && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  },
+  "keywords": [
+    "javascript",
+    "node",
+    "TEMPer",
+    "temperature",
+    "usb",
+    "raspberry pi",
+    "raspberrypi"
+  ],
+  "author": {
+    "name": "Marc Udoff",
+    "email": "marc.opensource@gmail.com"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "command-line-args": "^4.0.1",
+    "command-line-usage": "^4.0.0",
+    "debug": "^2.6.1",
+    "lodash": "^4.17.4",
+    "usb": "^1.2.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.3.15",
+    "babel-core": "^6.3.15",
+    "babel-eslint": "^7.1.1",
+    "babel-preset-es2015": "^6.22.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.16",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-babel": "^4.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.1",
+    "gulp-eslint": "^3.0.1",
+    "gulp-istanbul": "^1.1.1",
+    "gulp-jsdoc3": "^1.0.1",
+    "gulp-mocha": "^3.0.1",
+    "gulp-sourcemaps": "^2.4.0",
+    "isparta": "^4.0.0",
+    "mocha": "^3.2.0",
+    "pre-commit": "^1.1.2",
+    "run-sequence": "^1.1.5"
+  }
+}
