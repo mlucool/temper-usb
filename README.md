@@ -63,7 +63,7 @@ License
 [Apache-2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
 
 [npm-url]: https://npmjs.org/package/temper-usb
-[npm-image]: https://badge.fury.io/js/temper-usb
+[npm-image]: https://badge.fury.io/js/temper-usb.svg
 
 [travis-url]: http://travis-ci.org/mlucool/temper-usb
 [travis-image]: https://secure.travis-ci.org/mlucool/temper-usb.png?branch=master
