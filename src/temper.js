@@ -1,15 +1,26 @@
 import Promise from 'bluebird';
-import usb from 'usb';
 import _ from 'lodash';
 import * as consts from './consts';
 
 const debug = require('debug')('temper-usb:temper');
+
+let libUSB;
+
+/**
+ * For testing only!!
+ * @private
+ */
+export function _setUSB(_libUSB) {
+    libUSB = _libUSB;
+}
 
 /**
  * Get an array of TemperDevices that match the temper vendor/product ID
  * @returns {Array}
  */
 export function getTemperDevices() {
+    // For testing we need to inject a mock USB
+    const usb = libUSB || require('usb'); // eslint-disable-line
     const devices = [];
     _.forEach(usb.getDeviceList(), (device) => {
         const descriptor = device.deviceDescriptor;

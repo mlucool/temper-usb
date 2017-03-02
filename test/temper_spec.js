@@ -1,11 +1,26 @@
 import {expect} from 'chai';
-import {getTemperDevices, TemperDevice} from '../src/temper';
+import _ from 'lodash';
+import {getTemperDevices, TemperDevice, _setUSB} from '../src/temper';
 import * as consts from '../src/consts';
 import MockDevice from './MockDevice';
 
 describe('temper', () => {
     it('Should have a function to get all devices', () => {
-        expect(getTemperDevices()).to.be.an.array;
+        const mockUSB = {
+            getDeviceList: () => [
+                new MockDevice(),
+                new MockDevice({
+                    deviceDescriptor: {
+                        idVendor: consts.VIDPIDS[0].vid,
+                        idProduct: consts.VIDPIDS[0].pid
+                    }
+                })
+            ]
+        };
+        _setUSB(mockUSB);
+        const devices = getTemperDevices();
+        expect(devices).to.be.an.array;
+        expect(_.size(devices)).to.eql(1);
     });
 
     describe('TemperDevice', () => {
@@ -16,7 +31,7 @@ describe('temper', () => {
         });
 
         it('Should get the temperature in C', (cb) => {
-            const md = new MockDevice({endpointArgs: {dataIn: [0x80, 0x02, 0x20, 0x80, 0x30, 0x40, 0x72, 0x76]}});
+            const md = new MockDevice({}, {endpointArgs: {dataIn: [0x80, 0x02, 0x20, 0x80, 0x30, 0x40, 0x72, 0x76]}});
             const td = new TemperDevice(md);
             td.getTemperature().then(
                 (data) => {
@@ -28,7 +43,7 @@ describe('temper', () => {
         });
 
         it('Should get the temperature in F', (cb) => {
-            const md = new MockDevice({endpointArgs: {dataIn: [0x80, 0x02, 0x20, 0x80, 0x30, 0x60, 0x72, 0x76]}});
+            const md = new MockDevice({}, {endpointArgs: {dataIn: [0x80, 0x02, 0x20, 0x80, 0x30, 0x60, 0x72, 0x76]}});
             const td = new TemperDevice(md);
             td.getTemperature('f').then(
                 (data) => {
@@ -68,7 +83,7 @@ describe('temper', () => {
         });
 
         it('Should reject if read rejects', (cb) => {
-            const md = new MockDevice({endpointArgs: {transferErr: new Error('Test Error')}});
+            const md = new MockDevice({}, {endpointArgs: {transferErr: new Error('Test Error')}});
             const td = new TemperDevice(md);
             td.getTemperature()
                 .then((data) => cb(`Unexpected success with data ${data}`))

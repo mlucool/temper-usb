@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 // Gave up on sinon...
 class MockInterface {
     constructor({endpointArgs} = {}) {
@@ -41,10 +43,18 @@ function makeEndpoint(direction, {transferErr, dataIn} = {}) {
     return ret;
 }
 
+let busNumber = 0;
 export default class MockDevice {
-    constructor(interfaceArgs = {}) {
+    // Props are directly set on this
+    constructor(props, interfaceArgs = {}) {
         this.interfaces = [];
+        this.busNumber = busNumber++;
         this._interfaceArgs = interfaceArgs;
+        this.deviceDescriptor = {
+            idVendor: 0,
+            idProduct: 0
+        };
+        _.merge(this, props || {});
     }
 
     open() {
