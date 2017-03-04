@@ -49,6 +49,24 @@ If you want to install scripts globally, use `-g`. If you have install
 issues, checkout [usb](https://www.npmjs.com/package/usb) for more info
 on installing the correct usb libraries.
 
+## Permissions
+As noted [here](https://github.com/padelt/temper-python#usb-device-permissions) and
+included in this project for reference. If you don't want to run this as `sudo`,
+copy [etc/99-tempsensor.rules](https://github.com/mlucool/temper-usb/blob/master/etc/99-tempsensor.rules)
+into `/etc/udev/rules.d/`. You will do something like:
+```shell
+sudo cp /path/to/my/project/node_modules/temper-usb/etc/99-tempsensor.rules /etc/udev/rules.d/
+```
+
+To test restart or reinsert the usb then you should see the following:
+```shell
+pi@raspberrypi:~ $ lsusb | grep "0c45:7401"
+Bus 001 Device 013: ID 0c45:7401 Microdia 
+pi@raspberrypi:~ $ sudo ls -l /dev/usb*
+total 0
+crw-rw-rw- 1 root root 180, 96 Mar  4 15:29 hiddev0
+```
+
 ## Debugging
 We use [debug](https://github.com/visionmedia/debug). In node set env variable `DEBUG=temper-usb:*` 
 or in a browser `localStorage.debug='temper-usb:*'` to see debugging output.

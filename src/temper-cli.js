@@ -51,8 +51,8 @@ if (args.poll) {
 function getAndPrintTemp() {
     const now = new Date();
     Promise.all(devices.map((td) => td.getTemperature(args.fahrenheit ? 'f' : 'c', args.sensor_ids)
-        .then((data) => ({busNumber: td._device.busNumber, data}))
-        .catch((err) => ({busNumber: td._device.busNumber, err}))
+        .then((data) => ({busNumber: td.device.busNumber, deviceAddress: td.device.deviceAddress, data}))
+        .catch((err) => ({busNumber: td.device.busNumber, deviceAddress: td.device.deviceAddress, err}))
     ))
         .then((datum) => {
             if (args.jsonl) {
@@ -60,7 +60,7 @@ function getAndPrintTemp() {
             } else {
                 console.log(niceDateStr(now));
                 _.forEach(datum, (data) => {
-                    console.log(`${TAB}Device on bus ${data.busNumber}`);
+                    console.log(`${TAB}Device on bus ${data.busNumber}, address ${data.deviceAddress}`);
                     _.keys(data.data).sort().forEach((key) => {
                         console.log(`${TAB}${TAB}S${key}: ${data.data[key]}`);
                     });

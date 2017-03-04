@@ -6,6 +6,7 @@
   "files": [
     "dist",
     "bin",
+    "etc",
     "docs",
     "index.js",
     "src"

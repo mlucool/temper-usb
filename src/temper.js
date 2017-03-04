@@ -31,7 +31,8 @@ export function getTemperDevices() {
         );
         // If found, add it
         if (deviceType) {
-            debug('Adding device from bus %s with descriptor: %O', device.busNumber, descriptor);
+            debug('Adding device from bus %s at address %s with descriptor: %O',
+                device.busNumber, device.deviceAddress, descriptor);
             devices.push(new TemperDevice(device));
         }
     });
