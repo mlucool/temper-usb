@@ -1,6 +1,6 @@
 {
   "name": "temper-usb",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Node TEMPer USB library and CLI",
   "main": "index.js",
   "files": [
