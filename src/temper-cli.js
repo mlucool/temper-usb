@@ -24,8 +24,8 @@ const args = commandLineArgs(options);
 if (args.help) {
     const sections = [
         {
-            header: 'A temper reader',
-            content: 'Reader for a temper USB. See: https://www.npmjs.com/package/temper'
+            header: 'TEMPer USB Reader',
+            content: 'Reader for a TEMPer USB. See: https://www.npmjs.com/package/temper'
         },
         {
             header: 'Options',
