@@ -38,6 +38,16 @@ getTemperDevices().forEach((td) => td.getTemperature().then(console.log).catch(c
 // {"0": 89.6, "1": 76.71171875}
 ```
 
+Often you want to test without have a USB pluggined in. For this, 
+`MockTemperDevice`, which was used for testing has been exported.
+```javascript
+import {mock, TemperDevice} from 'temper-usb';
+const td = new mock.MockTemperDevice();
+console.log(td instanceof TemperDevice); // True
+td.getTemperature().then(console.log).catch(console.err); // in C
+// { '0': 32.5, '1': 48 } 
+```
+
 ## Installation
 
 Install `temper` as a dependency:

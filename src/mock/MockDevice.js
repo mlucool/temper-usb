@@ -36,9 +36,7 @@ function makeEndpoint(direction, {transferErr, dataIn} = {}) {
             return callback(transferErr, buffer);
         };
     } else {
-        ret.transfer = function transferOut(buffer, callback) {
-            return callback(transferErr);
-        };
+        ret.transfer = (buffer, callback) => callback(transferErr); // Unused thus far
     }
     return ret;
 }

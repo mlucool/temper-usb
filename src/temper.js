@@ -132,6 +132,7 @@ export class TemperDevice {
         // Better as async await
         return that._controlTransfer()
             .then((data) => that._interruptRead()).then((data) => {
+                const date = Date.now();
                 let _sensors = _.castArray(sensors || []);
                 if (_.size(_sensors) === 0) {
                     _sensors = this._getAllSensors();
@@ -158,7 +159,7 @@ export class TemperDevice {
                     temps[sensorID] = temp;
                 });
 
-                return temps;
+                return {data: temps, date};
             });
     }
 }

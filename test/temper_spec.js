@@ -2,7 +2,7 @@ import {expect} from 'chai';
 import _ from 'lodash';
 import {getTemperDevices, TemperDevice, _setUSB} from '../src/temper';
 import * as consts from '../src/consts';
-import MockDevice from './MockDevice';
+import {MockTemperDevice, MockDevice} from '../src/mock';
 
 describe('temper', () => {
     it('Should have a function to get all devices', () => {
@@ -31,24 +31,25 @@ describe('temper', () => {
         });
 
         it('Should get the temperature in C', (cb) => {
-            const md = new MockDevice({}, {endpointArgs: {dataIn: [0x80, 0x02, 0x20, 0x80, 0x30, 0x40, 0x72, 0x76]}});
-            const td = new TemperDevice(md);
+            const td = new MockTemperDevice({}, {
+                endpointArgs: {dataIn: [0x80, 0x02, 0x20, 0x80, 0x30, 0x40, 0x72, 0x76]}
+            });
             td.getTemperature().then(
                 (data) => {
-                    expect(data[0]).to.eql(32.5);
-                    expect(data[1]).to.eql(48.25);
+                    expect(data.data[0]).to.eql(32.5);
+                    expect(data.data[1]).to.eql(48.25);
                     cb();
                 }
             ).catch(cb);
         });
 
         it('Should get the temperature in F', (cb) => {
-            const md = new MockDevice({}, {endpointArgs: {dataIn: [0x80, 0x02, 0x20, 0x80, 0x30, 0x60, 0x72, 0x76]}});
-            const td = new TemperDevice(md);
+            const td = new MockTemperDevice({},
+                {endpointArgs: {dataIn: [0x80, 0x02, 0x20, 0x80, 0x30, 0x60, 0x72, 0x76]}});
             td.getTemperature('f').then(
                 (data) => {
-                    expect(data[0]).to.eql(90.5);
-                    expect(data[1]).to.eql(119.075);
+                    expect(data.data[0]).to.eql(90.5);
+                    expect(data.data[1]).to.eql(119.075);
                     cb();
                 }
             ).catch(cb);
@@ -71,20 +72,18 @@ describe('temper', () => {
         });
 
         it('Should reject is control transfer rejects', (cb) => {
-            const md = new MockDevice();
-            md.controlTransfer = (bmRequestType, bRequest, wValue, wIndex, data_or_length, callback) => { // eslint-disable-line
+            const td = new MockTemperDevice();
+            td.device.controlTransfer = (bmRequestType, bRequest, wValue, wIndex, data_or_length, callback) => { // eslint-disable-line
                 callback(new Error(''), undefined);
             };
 
-            const td = new TemperDevice(md);
             td.getTemperature()
                 .then((data) => cb(`Unexpected success with data ${data}`))
                 .catch(() => cb());
         });
 
         it('Should reject if read rejects', (cb) => {
-            const md = new MockDevice({}, {endpointArgs: {transferErr: new Error('Test Error')}});
-            const td = new TemperDevice(md);
+            const td = new MockTemperDevice({}, {endpointArgs: {transferErr: new Error('Test Error')}});
             td.getTemperature()
                 .then((data) => cb(`Unexpected success with data ${data}`))
                 .catch(() => cb());

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import commandLineArgs from 'command-line-args';
 import getUsage from 'command-line-usage';
+import Promise from 'bluebird';
 import _ from 'lodash';
 import {getTemperDevices} from './temper';
 
@@ -48,36 +49,41 @@ if (args.poll) {
     getAndPrintTemp();
 }
 
-function getAndPrintTemp() {
-    const now = new Date();
-    Promise.all(devices.map((td) => td.getTemperature(args.fahrenheit ? 'f' : 'c', args.sensor_ids)
-        .then((data) => ({busNumber: td.device.busNumber, deviceAddress: td.device.deviceAddress, data}))
-        .catch((err) => ({busNumber: td.device.busNumber, deviceAddress: td.device.deviceAddress, err}))
-    ))
-        .then((datum) => {
-            if (args.jsonl) {
-                console.log(JSON.stringify(datum.map((data) => _.merge({date: now}, data))));
-            } else {
-                console.log(niceDateStr(now));
-                _.forEach(datum, (data) => {
-                    console.log(`${TAB}Device on bus ${data.busNumber}, address ${data.deviceAddress}`);
-                    _.keys(data.data).sort().forEach((key) => {
-                        console.log(`${TAB}${TAB}S${key}: ${data.data[key]}`);
-                    });
-                    if (data.err) {
-                        console.log(`${TAB}${TAB} Error: ${data.err.toString()}`);
-                    }
+async function getAndPrintTemp() {
+    try {
+        const datum = await Promise.all(
+            devices.map((td) => td.getTemperature(args.fahrenheit ? 'f' : 'c', args.sensor_ids)
+                .then((data) => _.merge({busNumber: td.device.busNumber, deviceAddress: td.device.deviceAddress}, data))
+                .catch((err) => ({busNumber: td.device.busNumber, deviceAddress: td.device.deviceAddress, err}))
+            )); // Mapped data
+        if (args.jsonl) {
+            console.log(datum);
+        } else {
+            _.forEach(datum, (temperData) => {
+                console.log(niceDateStr(temperData.date));
+                console.log(`${TAB}Device on bus ${temperData.busNumber}, address ${temperData.deviceAddress}`);
+                _.keys(temperData.data).sort().forEach((key) => {
+                    console.log(`${TAB}${TAB}S${key}: ${temperData.data[key]}`);
                 });
-            }
-        })
+                if (temperData.err) {
+                    console.log(`${TAB}${TAB} Error: ${temperData.err.toString()}`);
+                }
+            });
+        }
         // This should never happen
-        .catch((err) => {
-            console.error(`${niceDateStr(now)}: Error getting and printing: ${err.toString()}`);
-        });
+    } catch (err) {
+        console.error(`${niceDateStr(Date.now())}: Error getting and printing: ${err.toString()}`);
+    }
 }
 
-// See: http://stackoverflow.com/a/12550320
-function niceDateStr(d) {
+/**
+ * Get a nicer date string
+ * @param {Number} dt Date in time since epoch (e.g. Date.now())
+ * @returns {string}
+ *
+ * @see http://stackoverflow.com/a/12550320
+ */
+function niceDateStr(dt) {
     function pad(n) {
         return n < 10 ? `0${n}` : n;
     }
@@ -92,6 +98,7 @@ function niceDateStr(d) {
         return n;
     }
 
+    const d = new Date(dt);
     /* eslint-disable prefer-template */
     return d.getFullYear() + '/'
         + pad(d.getMonth() + 1) + '/'
