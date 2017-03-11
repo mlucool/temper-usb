@@ -61,7 +61,7 @@ gulp.task('test', ['pre-test'], () => {
 gulp.task('doc', (cb) => {
     const config = require('gulp-jsdoc3/dist/jsdocConfig.json');
     config.templates.systemName = 'temper';
-    gulp.src(['README.md'].concat(srcCode), {read: false})
+    gulp.src(['README.md'].concat([...srcCode, '!**/*-cli.js']), {read: false})
         .pipe(jsdoc(config, cb));
 });
 
