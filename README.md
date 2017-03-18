@@ -86,6 +86,9 @@ This project borrows heavily from [temper-python](https://github.com/padelt/temp
 and is a vague reimplementation in another language. They have documented many
 error cases in that project. It is also much more well tested and complete than this.
 
+### Logging Temperatures to a Google Doc
+Want to record temps to a Google doc? Check out this POC: [temper-logger](https://github.com/mlucool/temper-logger)
+
 License
 -------------
 [Apache-2.0 License](http://www.apache.org/licenses/LICENSE-2.0)
