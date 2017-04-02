@@ -4,7 +4,7 @@
 
 > TEMPer USB reader for NodeJS
 
-Use connect to an interact with a [temper USB](http://a.co/iwusSK8) compatible sensor.
+Use to read a [temper USB](http://a.co/iwusSK8) compatible sensor.
 This project has been tested to work on a raspberry pi and should be easy
 to integrate into any NodeJS project. There is also a basic CLI which
 outputs [JSONL](http://jsonlines.org/) optionally.
@@ -84,7 +84,9 @@ or in a browser `localStorage.debug='temper-usb:*'` to see debugging output.
 ## Notes and a Thank You
 This project borrows heavily from [temper-python](https://github.com/padelt/temper-python/blob/master/temperusb/cli.py)
 and is a vague reimplementation in another language. They have documented many
-error cases in that project. It is also much more well tested and complete than this.
+error cases in that project.
+
+Are you looking for which sensor to buy? After trying a couple, I have found the [DigitalUS Mini USB Thermometer Hygrometer Temperature Sensor](http://a.co/0KmJn6f) to be the best. It is more expensive than the competitors, but its accuracy is unmatched. Like something better? Make an issue and I'll check it out.
 
 ### Logging Temperatures to a Google Doc
 Want to record temps to a Google doc? Check out this POC: [temper-logger](https://github.com/mlucool/temper-logger)
